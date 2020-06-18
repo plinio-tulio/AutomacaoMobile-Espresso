@@ -2,10 +2,14 @@ package idadedocachorro.studio.com.br.idadedocachorro.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
+
+import java.util.concurrent.CountDownLatch;
 
 import idadedocachorro.studio.com.br.idadedocachorro.R;
 
@@ -194,5 +198,18 @@ public abstract class ScreenRobot<T extends ScreenRobot> {
         onView(withId(viewId)).perform(swipeRight());
         return (T) this;
     }
-}
 
+    public static void rotateScreen(Activity activity) {
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
+        final int orientation = InstrumentationRegistry.getTargetContext()
+                .getResources()
+                .getConfiguration()
+                .orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT){
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }else  {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
+
+}

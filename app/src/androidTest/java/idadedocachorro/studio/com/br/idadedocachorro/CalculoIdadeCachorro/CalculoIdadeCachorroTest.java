@@ -10,6 +10,8 @@ import org.junit.Test;
 import idadedocachorro.studio.com.br.idadedocachorro.CalculoIdadeCachorro.pages.CalculoIdadeCachorroPage;
 import idadedocachorro.studio.com.br.idadedocachorro.MainActivity;
 
+import static idadedocachorro.studio.com.br.idadedocachorro.common.ScreenRobot.rotateScreen;
+
 public class CalculoIdadeCachorroTest {
 
     @Rule
@@ -43,7 +45,15 @@ public class CalculoIdadeCachorroTest {
         new CalculoIdadeCachorroPage()
                 .escreverIdade()
                 .clicarEmCalcular()
-                .sleep(5)
+                .verificarResultadoCalculo();
+    }
+
+    @Test
+    public void validarCalculoIdadeCachorroComTelaInvertida() throws InterruptedException {
+        rotateScreen(mActivityRule.getActivity());
+        new CalculoIdadeCachorroPage()
+                .escreverIdade()
+                .clicarEmCalcular()
                 .verificarResultadoCalculo();
     }
 
